@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, FlatList, StyleSheet, View } from "react-native";
 import GoalInput from "./components/GoalInput";
 import GoalItem from "./components/GoalItem";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   // useState hook
@@ -46,24 +47,26 @@ export default function App() {
   };
 
   return (
-    <View style={styles.appContainer}>
-      {/* -------- button for modal -------- */}
+    <>
+      <StatusBar style="light" />
+      <View style={styles.appContainer}>
+        {/* -------- button for modal -------- */}
 
-      <Button
-        title="Add New Goal"
-        color="#5e0acc"
-        onPress={startAddGoalHandler}
-      />
+        <Button
+          title="Add New Goal"
+          color="#5e0acc"
+          onPress={startAddGoalHandler}
+        />
 
-      {/* ---------- show all course goals --------- */}
-      <GoalInput
-        visible={modalIsVisible}
-        onAddGoal={addGoalHandler}
-        onCancel={endGoalHandler}
-      />
+        {/* ---------- show all course goals --------- */}
+        <GoalInput
+          visible={modalIsVisible}
+          onAddGoal={addGoalHandler}
+          onCancel={endGoalHandler}
+        />
 
-      {/*------- list-processing-1 -----------*/}
-      {/* <View style={styles.goalContainer}> 
+        {/*------- list-processing-1 -----------*/}
+        {/* <View style={styles.goalContainer}> 
         <ScrollView alwaysBounceVertical={false}>
           {courseGoals.map((goal) => (
             <View style={styles.goalItem}>
@@ -75,27 +78,28 @@ export default function App() {
         </ScrollView>
       </View> */}
 
-      {/*------- list-processing-2 -----------*/}
-      <View style={styles.goalContainer}>
-        <FlatList
-          data={courseGoals}
-          renderItem={(itemData) => {
-            return (
-              <GoalItem
-                text={itemData?.item?.text}
-                id={itemData?.item?.id}
-                onDeleteGoal={deleteGoalHandler}
-              />
-            );
-            // console.log(itemData.item.text);
-          }}
-          keyExtractor={(item, index) => {
-            return item.id;
-          }}
-          alwaysBounceVertical={false}
-        />
+        {/*------- list-processing-2 -----------*/}
+        <View style={styles.goalContainer}>
+          <FlatList
+            data={courseGoals}
+            renderItem={(itemData) => {
+              return (
+                <GoalItem
+                  text={itemData?.item?.text}
+                  id={itemData?.item?.id}
+                  onDeleteGoal={deleteGoalHandler}
+                />
+              );
+              // console.log(itemData.item.text);
+            }}
+            keyExtractor={(item, index) => {
+              return item.id;
+            }}
+            alwaysBounceVertical={false}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -104,6 +108,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     paddingHorizontal: 15,
+    // backgroundColor: "#1e085a",
   },
 
   goalContainer: {
